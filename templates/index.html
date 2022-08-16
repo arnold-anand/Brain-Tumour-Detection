@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TEST</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.8/typed.min.js"></script>
+<!--    <script src="{{ url_for('static', filename='index.js') }}"></script>-->
+    <script>
+      const renderFile = () => {
+        const render = document.querySelector("img");
+        const file = document.querySelector("input[type=file]").files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener(
+          "load",
+          () => {
+            render.src = reader.result;
+          },
+          false
+        );
+
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      };
+    </script>
+  </head>
+  <body class="select-none">
+    <div class="grid place-items-center text-6xl p-10">
+      <h1><span id="typed"></span></h1>
+    </div>
+    <div class="brainContainer"></div>
+    <div class="p-5 ml-20">
+      <div class="border-2 border-white w-80 h-64 rounded-3xl">
+        <img
+          class="w-80 h-64 p-5"
+          src="https://miro.medium.com/max/1400/1*PPud-Z83-82NSwvzV9dnlg.png"
+          alt="Upload Image"
+          id="rendered-image"
+        />
+      </div>
+      <div>
+        <span>
+          <label
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800 pt-5"
+            for="file_input"
+            >Upload file</label
+          >
+        </span>
+        <span>
+          <input
+            class="block w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+            id="file_input"
+            type="file"
+            onchange="renderFile()"
+          />
+        </span>
+
+        <div>
+          <button
+            id="image-selector"
+            class="p-3 border-white border-2 rounded-3xl w-80 text-4xl my-5 hover:bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+          >
+            Predict
+          </button>
+        </div>
+      </div>
+      <div class="text-4xl float-right -mt-80 mr-20">Hello world</div>
+
+      <script>
+        new Typed("#typed", {
+          strings: ["Brain Tumour Classification using Deep Learning"],
+          typeSpeed: 50,
+          delaySpeed: 200,
+          loop: false,
+        });
+      </script>
+    </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+  </body>
+</html>
